@@ -29,15 +29,35 @@ public class FaskesServiceImpl implements FaskesService {
         return hashedPassword;
     }
 
-//    @Override
-//    public String updateResetPasswordToken(String token, String email) {
-//        UserModel user = userDb.findByEmail(email);
-//        if (user != null) {
-//            user.setResetPasswordToken(token);
-//            userDb.save(user);
-//            return "token_success";
-//        } else {
-//            return null;
-//        }
-//    }
+    @Override
+    public String updateResetPasswordToken(String token, String email) {
+        FaskesModel user = faskesDb.findByEmail(email);
+        if (user != null) {
+            user.setResetPasswordToken(token);
+            faskesDb.save(user);
+            return "token_success";
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public FaskesModel getFaskesByResetToken(String token){
+        return faskesDb.findByResetPasswordToken(token);
+    }
+
+    @Override
+    public FaskesModel getFaskesByUsername(String username){
+        return faskesDb.findByUsername(username);
+    }
+
+    @Override
+    public void updatePassword(FaskesModel faskes,String newPassword){
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        faskes.setPassword(encodedPassword);
+
+        faskes.setResetPasswordToken(null);
+        faskesDb.save(faskes);
+    }
 }

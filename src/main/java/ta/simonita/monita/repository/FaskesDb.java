@@ -6,6 +6,8 @@ import ta.simonita.monita.model.FaskesModel;
 public interface FaskesDb extends JpaRepository<FaskesModel, Long> {
     FaskesModel findByUsername(String username);
 
-//    FaskesModel findBy
+    FaskesModel findByEmail(String email);
+
+    FaskesModel findByResetPasswordToken(String resetToken);
 
 }

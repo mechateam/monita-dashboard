@@ -6,5 +6,10 @@ public interface FaskesService {
 
     void addFaskes(FaskesModel faskes);
 
-//    String updateResetPasswordToken(String token, String email);
+    String updateResetPasswordToken(String token, String email);
+
+    FaskesModel getFaskesByResetToken(String token);
+    FaskesModel getFaskesByUsername(String username);
+
+    void updatePassword(FaskesModel faskes,String newPassword);
 }
