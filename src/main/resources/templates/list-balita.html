@@ -356,7 +356,7 @@
                                 </div>
                             </form>
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table th:if="${listBalita!=null and !listBalita.empty}" class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>Nama Anak</th>
@@ -385,6 +385,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                <h2 th:unless="${listBalita!=null and !listBalita.empty}">Balita tidak ditemukan.</h2>
                             </div>
                         </div>
                     </div>

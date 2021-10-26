@@ -56,10 +56,6 @@ public class BalitaServiceImpl implements BalitaService {
         List<BalitaModel> listBalita = new ArrayList<>();
 
         for (BalitaModel balita: listBalitaKelurahan){
-            System.out.println("RT Balita "+ balita.getId_pengguna().getRt());
-            System.out.println("RW Balita "+balita.getId_pengguna().getRw());
-            System.out.println("RT "+rt );
-            System.out.println("RW "+rw );
             if (balita.getId_pengguna().getRt() == rt && balita.getId_pengguna().getRw() == rw){
                 listBalita.add(balita);
             }
