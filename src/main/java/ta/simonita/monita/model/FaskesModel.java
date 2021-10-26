@@ -48,11 +48,11 @@ public class FaskesModel implements Serializable {
 
     @NotNull
     @Column(name="rt",nullable = false)
-    private String rt;
+    private Integer rt;
 
     @NotNull
     @Column(name="rw",nullable = false)
-    private String rw;
+    private Integer rw;
 
     @NotNull
     @Column(name="kelurahan",nullable = false)
@@ -94,19 +94,19 @@ public class FaskesModel implements Serializable {
         this.address = address;
     }
 
-    public String getRt() {
+    public Integer getRt() {
         return rt;
     }
 
-    public void setRt(String rt) {
+    public void setRt(Integer rt) {
         this.rt = rt;
     }
 
-    public String getRw() {
+    public Integer getRw() {
         return rw;
     }
 
-    public void setRw(String rw) {
+    public void setRw(Integer rw) {
         this.rw = rw;
     }
 
