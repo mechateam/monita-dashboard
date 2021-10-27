@@ -45,7 +45,7 @@ public class PageController {
     public String DashboardData(Model model){
         FaskesModel user = faskesService.getFaskesByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         List<UserModel> listParent = userDb.findAllByKelurahan(user.getKelurahan());
-        model.addAttribute("listBalita", balitaService.getAllBayiFromSameKelurahan(listParent).size());
+        model.addAttribute("listBalita", balitaService.getAllBayiFromSameKelurahan(listParent));
         return "home-data-BBperUsia";
     }
 }
