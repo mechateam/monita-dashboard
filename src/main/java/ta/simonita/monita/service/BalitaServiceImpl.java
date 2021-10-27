@@ -1,5 +1,4 @@
 package ta.simonita.monita.service;
-
 import org.springframework.stereotype.Service;
 import ta.simonita.monita.model.BalitaModel;
 import ta.simonita.monita.model.UserModel;
@@ -116,5 +115,18 @@ public class BalitaServiceImpl implements BalitaService {
         }
 
         return umurBalita;
+    }
+
+    @Override
+    public List<String> diagnosisPerhatian(Date date, List<UserModel> listUser) {
+        List<String> list = new ArrayList<String>();
+        int count1; int count2; int count3; int count4;
+        for(BalitaModel balita : this.getAllBayiFromSameKelurahan(listUser)) {
+            for(int i=0; i<balita.getListPertumbuhan().size(); i++) {
+
+
+            }
+        }
+        return list;
     }
 }

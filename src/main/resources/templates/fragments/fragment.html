@@ -23,18 +23,144 @@
     <!-- Custom styles for this page -->
     <link th:href="@{/vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
 
-
 </head>
 
-<body th:fragment="js">
-<!-- Bootstrap core JavaScript-->
-<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
-<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<body>
+<!-- Sidebar -->
+<ul th:fragment="sidebar" class="navbar-nav bg-gradient sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color:#338A94">
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center">
+        <div class="sidebar-brand-icon">
+            <img th:src="@{~/img/SIMONITA.png}" class="img-fluid"/>
+        </div>
+    </a>
 
-<!-- Core plugin JavaScript-->
-<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
 
-<!-- Custom scripts for all pages-->
-<script th:src="@{/js/sb-admin-2.min.js}"></script>
+    <!-- Nav Item - Beranda -->
+    <li class="nav-item active">
+        <a class="nav-link" th:href="@{/}">
+            <i class="fas fa-user"></i>
+            <span>Beranda</span></a>
+    </li>
+
+    <!-- Nav Item - Data Balita -->
+    <li class="nav-item active">
+        <a class="nav-link" th:href="@{/balita}">
+            <i class="fas fa-users"></i>
+            <span>Data Balita</span></a>
+    </li>
+
+    <!-- Nav Item - Help -->
+    <li class="nav-item active">
+        <a class="nav-link" th:href="@{/help}">
+            <i class="fas fa-question-circle"></i>
+            <span>Bantuan</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Logout -->
+    <li class="nav-item active">
+        <a class="nav-link" type="button" data-toggle="modal" data-target="#logoutModal">
+            <i class="fas fa-sign-out"></i>
+            <span>Keluar</span></a>
+    </li>
+
+</ul>
+<!-- End of Sidebar -->
+
+<!-- Topbar -->
+<nav th:fragment="navbar" class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+    <!-- Sidebar Toggle (Topbar) -->
+    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+        <i class="fa fa-bars"></i>
+    </button>
+
+    <!-- Topbar Navbar -->
+    <ul class="navbar-nav ml-auto">
+
+        <div class="topbar-divider d-none d-sm-block"></div>
+
+        <!-- Nav Item - User Information -->
+        <li class="nav-item dropdown no-arrow">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${#httpServletRequest.remoteUser}"></span>
+                <img class="img-profile rounded-circle"
+                     src="img/undraw_profile.svg">
+            </a>
+            <!-- Dropdown - User Information -->
+            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                 aria-labelledby="userDropdown">
+                <a class="dropdown-item" th:href="@{/profil}">
+                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Profil
+                </a>
+                <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">
+                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Keluar
+                </a>
+            </div>
+        </li>
+    </ul>
+</nav>
+<!-- End of Topbar -->
+
+<!-- Footer -->
+<footer th:fragment="footer" class="sticky-footer bg-white">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>Copyright &copy; SIMONITA - 2021</span>
+        </div>
+    </div>
+</footer>
+<!-- End of Footer -->
+
+<!-- Logout Modal-->
+
+<div class="modal fade" th:fragment="logout" id="logoutModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="margin-top: 30vh;" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="d-flex justify-content-center align-items-center my-3">
+                    <h6 class="font-weight-bold text-center" style="color: black;">Ready to leave?</h6>
+                </div>
+                <div class="d-flex justify-content-center my-3">
+                    <button class="btn btn-primary mx-2" style="background-color:#338A94; width: 150px;" type="button" data-dismiss="modal">Batal</button>
+                    <a th:href="@{/logout}" class="btn btn-outline-danger mx-2" style="width: 150px;">Keluar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div  th:fragment="js">
+    <!-- Bootstrap core JavaScript-->
+    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script th:src="@{/js/sb-admin-2.min.js}"></script>
+    <script th:src="@{/js/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/js/dataTables.bootstrap4.min.js}"></script>
+
+    <!-- MD Bootstrap-->
+    <script th:src="@{/js/mdb.min.js}"></script>
+
+    <!-- Page level plugins -->
+    <script th:src="@{/vendor/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+
+    <!-- Page level custom scripts -->
+    <script th:src="@{/js/demo/datatables-demo.js}"></script>
+</div>
 
 </body>
+</html>
