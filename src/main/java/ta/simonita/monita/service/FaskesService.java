@@ -12,4 +12,5 @@ public interface FaskesService {
     FaskesModel getFaskesByUsername(String username);
 
     void updatePassword(FaskesModel faskes,String newPassword);
+    void changeFaskes(FaskesModel faskes);
 }
