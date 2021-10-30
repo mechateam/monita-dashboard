@@ -40,6 +40,7 @@ public class PageController {
         int month = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getMonth().getValue();
         FaskesModel user = faskesService.getFaskesByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         List<UserModel> listParent = userDb.findAllByKelurahan(user.getKelurahan());
+        model.addAttribute("now", balitaService.getMonth(month) + " " + year);
         model.addAttribute("listYear", balitaService.listYearFilter(listParent));
         model.addAttribute("kelurahan", faskesService.getFaskesByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getKelurahan());
         model.addAttribute("jumlahBalita", balitaService.getAllBayiFromSameKelurahan(listParent).size());
@@ -49,15 +50,19 @@ public class PageController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST, params = {"filter"})
     public String filterDashboard(
-            @RequestParam("month") String month,
-            @RequestParam("year") Integer year,
+            @RequestParam(name = "month", required = false) String month,
+            @RequestParam(name = "year", required = false) Integer year,
             RedirectAttributes redirectAttributes
     ){
+        Date today = new Date();
+        int yearNow = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear();
+        int monthNow = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getMonth().getValue();
+        int monthTarget = month == null ?  monthNow : Integer.valueOf(month);
+        int yearTarget = year == null ?  yearNow : year;
         FaskesModel user = faskesService.getFaskesByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         List<UserModel> listParent = userDb.findAllByKelurahan(user.getKelurahan());
-
-        redirectAttributes.addFlashAttribute("listYear", balitaService.listYearFilter(listParent));
-        redirectAttributes.addFlashAttribute("listBalitaPerhatian", balitaService.diagnosisPerhatian(year, Integer.valueOf(month), listParent));
+        redirectAttributes.addFlashAttribute("nows", balitaService.getMonth(monthTarget) + " " + yearTarget);
+        redirectAttributes.addFlashAttribute("listBalitaPerhatianRedirect", balitaService.diagnosisPerhatian(yearTarget, monthTarget, listParent));
         return "redirect:/";
     }
 

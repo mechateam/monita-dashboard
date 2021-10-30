@@ -8,6 +8,7 @@ import ta.simonita.monita.repository.BalitaDb;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
+import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -184,13 +185,14 @@ public class BalitaServiceImpl implements BalitaService {
                     listYear.add(i);
                 }
             }
-            System.out.println("masuk 1");
-            System.out.println(listYear);
             return listYear;
         }
-        System.out.println("masuk 2");
-        System.out.println(listYear);
-        return listYear;
+        return null;
+    }
+
+    @Override
+    public String getMonth(Integer month) {
+        return new DateFormatSymbols().getMonths()[month-1];
     }
 
     @Override
