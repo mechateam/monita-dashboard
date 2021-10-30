@@ -145,6 +145,8 @@ public class BalitaController {
             List<BalitaModel> listBalitaU = new ArrayList<>();
             listBalitaU.add(balita);
             List<String> umurBalita =  balitaService.calculateUmurBalita(listBalitaU);
+            model.addAttribute("faskes", user.getName());
+            model.addAttribute("telepon", balita.getId_pengguna().getPhone());
             model.addAttribute("pertumbuhanBalita", balita.getListPertumbuhan());
             model.addAttribute("perkembanganBalita", balita.getListPerkembangan());
             model.addAttribute("imunisasiBalita", balita.getListImunisasi());

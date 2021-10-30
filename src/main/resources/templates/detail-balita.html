@@ -63,7 +63,11 @@
                 <!-- Content Row -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-dark" id="judul-tabel">Pertumbuhan</h6>
+                        <div class="d-sm-flex align-items-center justify-content-between mb-12">
+                            <h6 class="m-0 font-weight-bold text-dark" id="judul-tabel">Pertumbuhan</h6>
+                            <a class="btn-md-light" style="color: #338A94" th:href="'http://api.whatsapp.com/send?phone=' + @{telepon} +
+                                    '&text=Halo%20kami%20dari%20' + ${faskes} + '%20ingin%20menanyakan%20mengenai%20tumbuh%20kembang%20Balita%20' + ${balita.name}">Hubungi Ibu Balita</a>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive" id="tabel-pertumbuhan" style="display: block;">

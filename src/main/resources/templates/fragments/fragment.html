@@ -100,6 +100,10 @@
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Profil
                 </a>
+                <a class="dropdown-item" th:href="@{/user/reset_password}">
+                    <i class="fas fa-user-lock fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Ubah Sandi
+                </a>
                 <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                     Keluar
@@ -127,7 +131,7 @@
         <div class="modal-content">
             <div class="modal-body">
                 <div class="d-flex justify-content-center align-items-center my-3">
-                    <h6 class="font-weight-bold text-center" style="color: black;">Ready to leave?</h6>
+                    <h6 class="font-weight-bold text-center" style="color: black;">Apakah benar ingin keluar?</h6>
                 </div>
                 <div class="d-flex justify-content-center my-3">
                     <button class="btn btn-primary mx-2" style="background-color:#338A94; width: 150px;" type="button" data-dismiss="modal">Batal</button>
