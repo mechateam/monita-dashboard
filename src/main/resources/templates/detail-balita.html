@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="http://thymeleaf.org" xmlns:th="http://www.springframework.org/schema/jdbc">
+
+<head>
+    <object th:include="fragments/fragment :: head"></object>
+    <object th:include="fragments/fragment :: js"></object>
+</head>
+
+<body>
+<div id="wrapper">
+
+    <ul th:replace="fragments/fragment :: sidebar"></ul>
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav th:replace="fragments/fragment :: navbar"></nav>
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 th:text="${balita.name} + ' - ' + ${umurBalita}" class="h3 mb-0 font-weight-bold"  style="color: #656867" text-align="center"></h1>
+                </div>
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <div>
+                        <a class="btn btn-primary font-weight-bold py-3 mr-5 border-0" onClick= "toPertumbuhan()"
+                           style="background-color: #ECF5FF; color: #005DBF; width: 150px" type="button" id="btn-pertumbuhan">
+                            Pertumbuhan
+                        </a>
+                        <a class="btn btn-primary font-weight-bold py-3 mx-5 border-0" onClick= "toPerkembangan()"
+                           style="background-color: transparent; color: #52545C; width: 150px" type="button" id="btn-perkembangan">
+                            Perkembangan
+                        </a>
+                        <a class="btn btn-primary font-weight-bold py-3 ml-5 border-0" onClick= "toImunisasi()"
+                           style="background-color: transparent; color: #52545C; width: 150px" type="button" id="btn-imunisasi">
+                            Imunisasi
+                        </a>
+                    </div>
+                    <div>
+                        <li class="nav-item dropdown no-arrow" style="list-style-type: none;">
+                            <a class="nav-link dropdown-toggle btn-light" style="color: #338A94" href="#" id="userDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Unduh Data</a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                 aria-labelledby="userDropdown">
+                                <a class="dropdown-item" th:href="@{/}">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Identitas Balita
+                                </a>
+                                <a class="dropdown-item" th:href="@{/}">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Data Pertumbuhan
+                                </a>
+                            </div>
+                        </li>
+                    </div>
+                </div>
+
+                <!-- Content Row -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-dark" id="judul-tabel">Pertumbuhan</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive" id="tabel-pertumbuhan" style="display: block;">
+                            <table class="table" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Tanggal Input</th>
+                                    <th>Usia</th>
+                                    <th>Berat Badan</th>
+                                    <th>Tinggi Badan</th>
+                                    <th>Status BB/Usia</th>
+                                    <th>Status TB/Usia</th>
+                                    <th>Status BB/TB</th>
+                                    <th>Status IMT</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="pertumbuhan, iter : ${pertumbuhanBalita}">
+                                    <td th:text="${pertumbuhan.input_date}"></td>
+                                    <td th:text="${pertumbuhan.input_age}"></td>
+                                    <td th:text="${pertumbuhan.berat_badan}"></td>
+                                    <td th:text="${pertumbuhan.tinggi_badan}"></td>
+                                    <td th:text="${statusPertumbuhan[__${iter.index}__][0]}"></td>
+                                    <td th:text="${statusPertumbuhan[__${iter.index}__][1]}"></td>
+                                    <td th:text="${statusPertumbuhan[__${iter.index}__][2]}"></td>
+                                    <td th:text="${statusPertumbuhan[__${iter.index}__][3]}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="table-responsive" id="tabel-perkembangan" style="display: none;">
+                            <table class="table" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Tanggal Input</th>
+                                    <th>Usia</th>
+                                    <th>Gerak Halus</th>
+                                    <th>Gerak Kasar</th>
+                                    <th>Bicara dan Bahasa</th>
+                                    <th>Sosialisasi dan Kemandirian</th>
+                                    <th>Status Perkembangan</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="perkembangan, iter : ${perkembanganBalita}">
+                                    <td th:text="${perkembangan.input_date}"></td>
+                                    <td th:text="${perkembangan.deskripsi_diagnosis}"></td>
+                                    <td th:text="${perkembangan.diagnosis_gerak_halus}"></td>
+                                    <td th:text="${perkembangan.diagnosis_gerak_kasar}"></td>
+                                    <td th:text="${perkembangan.diagnosis_bicara_bahasa}"></td>
+                                    <td th:text="${perkembangan.diagnosis_sosialisasi}"></td>
+                                    <td th:text="${perkembangan.diagnosis}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="table-responsive" id="tabel-imunisasi" style="display: none;">
+                            <table class="table" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Tanggal Imunisasi</th>
+                                    <th>Periode Imunisasi</th>
+                                    <th>Nama Imunisasi</th>
+                                    <th>Status Imunisasi</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="imunisasi, iter : ${imunisasiBalita}">
+                                    <td th:text="${imunisasi.deskripsi}"></td>
+                                    <td th:text="${imunisasi.periode}"></td>
+                                    <td th:text="${imunisasi.name}"></td>
+                                    <td th:text="${imunisasi.status}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="fragments/fragment :: footer"></footer>
+    </div>
+</div>
+<div th:replace="fragments/fragment :: logout"></div>
+<script th:inline="javascript">
+    function toPerkembangan() {
+        document.getElementById('tabel-pertumbuhan').setAttribute('style', 'display: none');
+        document.getElementById('tabel-perkembangan').setAttribute('style', 'display: block');
+        document.getElementById('tabel-imunisasi').setAttribute('style', 'display: none');
+        document.getElementById('judul-tabel').innerHTML = "Perkembangan";
+        document.getElementById('btn-pertumbuhan').setAttribute('style', 'background-color: transparent; color: #52545C; width: 150px');
+        document.getElementById('btn-imunisasi').setAttribute('style', 'background-color: transparent; color: #52545C; width: 150px');
+        document.getElementById('btn-perkembangan').setAttribute('style', 'background-color: #ECF5FF; color: #005DBF; width: 150px');
+    }
+    function toImunisasi() {
+        document.getElementById('tabel-pertumbuhan').setAttribute('style', 'display: none');
+        document.getElementById('tabel-perkembangan').setAttribute('style', 'display: none');
+        document.getElementById('tabel-imunisasi').setAttribute('style', 'display: block');
+        document.getElementById('judul-tabel').innerHTML = "Imunisasi";
+        document.getElementById('btn-pertumbuhan').setAttribute('style', 'background-color: transparent; color: #52545C; width: 150px');
+        document.getElementById('btn-imunisasi').setAttribute('style', 'background-color: #ECF5FF; color: #005DBF; width: 150px');
+        document.getElementById('btn-perkembangan').setAttribute('style', 'background-color: transparent; color: #52545C; width: 150px');
+    }
+    function toPertumbuhan() {
+        document.getElementById('tabel-pertumbuhan').setAttribute('style', 'display: block');
+        document.getElementById('tabel-perkembangan').setAttribute('style', 'display: none');
+        document.getElementById('tabel-imunisasi').setAttribute('style', 'display: none');
+        document.getElementById('judul-tabel').innerHTML = "Pertumbuhan";
+        document.getElementById('btn-pertumbuhan').setAttribute('style', 'background-color: #ECF5FF; color: #005DBF; width: 150px');
+        document.getElementById('btn-imunisasi').setAttribute('style', 'background-color: transparent; color: #52545C; width: 150px');
+        document.getElementById('btn-perkembangan').setAttribute('style', 'background-color: transparent; color: #52545C; width: 150px');
+    }
+</script>
+</body>
+</html>

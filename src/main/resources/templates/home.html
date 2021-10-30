@@ -23,6 +23,7 @@
 
                 <!-- Page Heading -->
                 <h1 class="h3 mb-2  font-weight-bold"  style="color: #656867" text-align="center">Dashboard</h1>
+                <br>
 
                 <div class="card shadow mb-4">
                     <!-- Card Body -->
@@ -56,8 +57,7 @@
                                     </select>
                                     <select name="year" class="form-control bg-light border-0 small" required aria-label="Search" aria-describedby="basic-addon2">
                                         <option selected disabled>Pilih Tahun</option>
-                                        <!--                                            <option th:each="year : ${listYearFilter}" th:value="${year}"-->
-                                        <!--                                                    th:text="${year}"/>-->
+                                        <option th:each="year : ${listYear}" th:value="${year}" th:text="${year}"/>
                                     </select>
                                     <div class="input-group-append">
                                         <button class="btn btn-primary" type="submit" name="filter">
@@ -77,27 +77,39 @@
 
                         <!-- Content Row -->
                         <div class="row">
-                            <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="col-md-3 col-sm-6 col-xs-12">
                                 <div class="card mb-4">
-                                    <a th:href="@{/data-perhatian-BBperUsia}" type="button"><div class="card-body text-center">
-                                        <h6 class="font-weight-bolder">Data BB/Usia Balita PERHATIAN</h6>
-<!--                                            <h2 th:text="'Rp' + ${amountDisbursedFiltered != null ? amountDisbursedFiltered : amountDisbursed}" class="font-weight-bolder" style="color: #005DBF"></h2>-->
+                                    <a th:href="@{/balita/perhatian-BB}" type="button" style="text-decoration: none"><div class="card-body text-center">
+                                        <h6 class="font-weight-bolder" style="color: #656867">Data BB/Usia Balita</h6>
+                                        <h6 class="font-weight-bolder" style="color: red">PERHATIAN</h6>
+                                            <h2 th:text="${listBalitaPerhatian[0]}" class="font-weight-bolder" style="color: #005DBF"></h2>
                                     </div></a>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="col-md-3 col-sm-6 col-xs-12">
                                 <div class="card mb-4">
-                                    <a th:href="@{/data-perhatian-TBperUsia}" type="button"><div class="card-body text-center">
-                                        <h6 class="font-weight-bolder">Data TB/Usia Balita PERHATIAN</h6>
-<!--                                            <h2 th:text="${disbursedRequestFiltered != null ? disbursedRequestFiltered : disbursedRequest}" class="font-weight-bolder" style="color: #1AB759"></h2>-->
+                                    <a th:href="@{/balita/perhatian-TB}" type="button" style="text-decoration: none"><div class="card-body text-center">
+                                        <h6 class="font-weight-bolder" style="color: #656867">Data TB/Usia Balita</h6>
+                                        <h6 class="font-weight-bolder" style="color: red">PERHATIAN</h6>
+                                        <h2 th:text="${listBalitaPerhatian[1]}" class="font-weight-bolder" style="color: #005DBF"></h2>
                                     </div></a>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="col-md-3 col-sm-6 col-xs-12">
                                 <div class="card mb-4">
-                                    <a th:href="@{/data-perhatian-BBperTB}" type="button"><div class="card-body text-center">
-                                        <h6 class="font-weight-bolder">Data BB/TB Balita PERHATIAN</h6>
-<!--                                            <h2 th:text="${rejectedRequestFiltered != null ? rejectedRequestFiltered : rejectedRequest}" class="font-weight-bolder" style="color: #E93C3C"></h2>-->
+                                    <a th:href="@{/balita/perhatian-BB-TB}" type="button" style="text-decoration: none"><div class="card-body text-center">
+                                        <h6 class="font-weight-bolder" style="color: #656867">Data BB/TB Balita</h6>
+                                        <h6 class="font-weight-bolder" style="color: red">PERHATIAN</h6>
+                                        <h2 th:text="${listBalitaPerhatian[2]}" class="font-weight-bolder" style="color: #005DBF"></h2>
+                                    </div></a>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                <div class="card mb-4">
+                                    <a th:href="@{/balita/perhatian-IMT}" type="button" style="text-decoration: none"><div class="card-body text-center">
+                                        <h6 class="font-weight-bolder" style="color: #656867">Data IMT Balita</h6>
+                                        <h6 class="font-weight-bolder" style="color: red">PERHATIAN</h6>
+                                        <h2 th:text="${listBalitaPerhatian[3]}" class="font-weight-bolder" style="color: #005DBF"></h2>
                                     </div></a>
                                 </div>
                             </div>

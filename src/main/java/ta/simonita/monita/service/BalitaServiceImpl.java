@@ -1,9 +1,15 @@
 package ta.simonita.monita.service;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ta.simonita.monita.model.BalitaModel;
+import ta.simonita.monita.model.PertumbuhanBalitaModel;
 import ta.simonita.monita.model.UserModel;
+import ta.simonita.monita.repository.BalitaDb;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -13,6 +19,8 @@ import java.util.List;
 @Service
 @Transactional
 public class BalitaServiceImpl implements BalitaService {
+    @Autowired
+    BalitaDb balitaDb;
 
     @Override
     public List<BalitaModel> getAllBayiFromSameKelurahan(List<UserModel> listUser){
@@ -118,15 +126,91 @@ public class BalitaServiceImpl implements BalitaService {
     }
 
     @Override
-    public List<String> diagnosisPerhatian(Date date, List<UserModel> listUser) {
-        List<String> list = new ArrayList<String>();
-        int count1; int count2; int count3; int count4;
+    public List<List<BalitaModel>> getAllBalitaPerhatian(Integer year, Integer month, List<UserModel> listUser) {
+        List<List<BalitaModel>> masterList = new ArrayList<List<BalitaModel>>();
+        List<BalitaModel> list1 = new ArrayList<BalitaModel>();
+        List<BalitaModel> list2 = new ArrayList<BalitaModel>();
+        List<BalitaModel> list3 = new ArrayList<BalitaModel>();
+        List<BalitaModel> list4 = new ArrayList<BalitaModel>();
         for(BalitaModel balita : this.getAllBayiFromSameKelurahan(listUser)) {
             for(int i=0; i<balita.getListPertumbuhan().size(); i++) {
-
-
+                int tahun_input = balita.getListPertumbuhan().get(i).getInput_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear();
+                int bulan_input = balita.getListPertumbuhan().get(i).getInput_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getMonth().getValue();
+                if(year == tahun_input && month == bulan_input) {
+                    String splitDiagnosis[] = balita.getListPertumbuhan().get(i).getDiagnosis().split(", ");
+                    if(splitDiagnosis[0].equals("Perhatian")) {list1.add(balita);}
+                    if(splitDiagnosis[1].equals("Perhatian")) {list2.add(balita);}
+                    if(splitDiagnosis[2].equals("Perhatian")) {list3.add(balita);}
+                    if(splitDiagnosis[3].equals("Perhatian")) {list4.add(balita);}
+                }
             }
         }
+        masterList.add(0, list1); masterList.add(1, list2); masterList.add(2, list3); masterList.add(3, list4);
+        return masterList;
+    }
+
+    @Override
+    public BalitaModel getBalitaById(Long id) {
+        return balitaDb.getById(id);
+    }
+
+    @Override
+    public List<String[]> getStatusPertumbuhan(BalitaModel balita) {
+        List<String[]> statusPertumbuhan = new ArrayList<>();
+        for(PertumbuhanBalitaModel pertumbuhan : balita.getListPertumbuhan()) {
+            String status[] = pertumbuhan.getDiagnosis().split(", ");
+            statusPertumbuhan.add(status);
+        }
+        return statusPertumbuhan;
+    }
+
+    @Override
+    public List<Integer> listYearFilter(List<UserModel> listUser) {
+        List<Integer> listYear = new ArrayList<Integer>();
+        int yearNow = LocalDateTime.now().getYear();
+        int temp = yearNow;
+        for (BalitaModel balita : this.getAllBayiFromSameKelurahan(listUser)) {
+            for (int i = 0; i < balita.getListPertumbuhan().size(); i++) {
+                int tempYear = balita.getListPertumbuhan().get(i).getInput_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear();
+                if (tempYear < temp) {
+                    temp = tempYear;
+                }
+            }
+            if (yearNow == temp) {
+                listYear.add(yearNow);
+            }
+            if (yearNow != temp) {
+                for (int i = yearNow; i >= temp; i--) {
+                    listYear.add(i);
+                }
+            }
+            System.out.println("masuk 1");
+            System.out.println(listYear);
+            return listYear;
+        }
+        System.out.println("masuk 2");
+        System.out.println(listYear);
+        return listYear;
+    }
+
+    @Override
+    public List<Integer> diagnosisPerhatian(Integer year, Integer month, List<UserModel> listUser) {
+        List<Integer> list = new ArrayList<Integer>();
+        int count1=0; int count2=0; int count3=0; int count4=0;
+        for(BalitaModel balita : this.getAllBayiFromSameKelurahan(listUser)) {
+            for(int i=0; i<balita.getListPertumbuhan().size(); i++) {
+                int tahun_input = balita.getListPertumbuhan().get(i).getInput_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear();
+                int bulan_input = balita.getListPertumbuhan().get(i).getInput_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getMonth().getValue();
+                if(year == tahun_input && month == bulan_input) {
+                    String splitDiagnosis[] = balita.getListPertumbuhan().get(i).getDiagnosis().split(", ");
+                    if(splitDiagnosis[0].equals("Perhatian")) {count1++;}
+                    if(splitDiagnosis[1].equals("Perhatian")) {count2++;}
+                    if(splitDiagnosis[2].equals("Perhatian")) {count3++;}
+                    if(splitDiagnosis[3].equals("Perhatian")) {count4++;}
+                }
+            }
+        }
+        list.add(0, count1); list.add(1, count2); list.add(2, count3); list.add(3, count4);
         return list;
     }
 }
