@@ -8,13 +8,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ta.simonita.monita.model.FaskesModel;
 import ta.simonita.monita.model.UserModel;
+import ta.simonita.monita.repository.FaskesDb;
 import ta.simonita.monita.service.FaskesService;
 
 import javax.mail.*;
@@ -157,5 +155,49 @@ public class UserController {
 
         msg.setContent(multipart);
         Transport.send(msg);
+    }
+
+    @GetMapping ("/profil")
+    public String profilPage (Model model){
+        FaskesModel user = faskesService.getFaskesByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        model.addAttribute("faskes", user);
+        return "page-profile";
+    }
+
+    @GetMapping("/profil/ubah")
+    public String ubahProfil (Model model){
+        FaskesModel user = faskesService.getFaskesByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        model.addAttribute("faskes", user);
+        return"page-ubahprofile";
+    }
+
+    @PostMapping("/profil/ubah/{id_faskes}")
+    public String postUbahProfile (FaskesModel faskes, Model model,@PathVariable Long id_faskes, RedirectAttributes redirectAttributes){
+        FaskesModel user = faskesService.getFaskesByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        faskes.setAddress(user.getAddress());
+        faskesService.changeFaskes(faskes);
+        return "redirect:/user/profil";
+    }
+
+    @GetMapping("/profil/ubah-password")
+    public String ubahPassword (Model model){
+        model.addAttribute("faskes", faskesService.getFaskesByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+        return"page-ubahpassword";
+    }
+
+    @PostMapping("/profil/ubah-password")
+    public String postUbahPassword (@ModelAttribute FaskesModel faskes, @RequestParam("confirmationpass") String confirmationpass,
+                                    @RequestParam("newpass") String newpass, Model model,
+                                    RedirectAttributes redirectAttributes,HttpServletRequest request){
+
+        //cekpassword baru dan konfirmasinya
+        if(newpass.equals(confirmationpass)){
+            faskes.setPassword(newpass);
+            faskesService.changeFaskes(faskes);
+            redirectAttributes.addFlashAttribute("successUpdate", "Password " + faskes.getName() + " berhasil diperbaharui");
+            return "redirect:/user/profil/ubah-password";
+        }
+        redirectAttributes.addFlashAttribute("errorUpdate", "Password " + faskes.getName() + " gagal diperbaharui");
+        return "redirect:/user/profil/ubah-password";
     }
 }
