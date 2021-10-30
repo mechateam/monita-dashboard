@@ -60,4 +60,9 @@ public class FaskesServiceImpl implements FaskesService {
         faskes.setResetPasswordToken(null);
         faskesDb.save(faskes);
     }
+
+    @Override
+    public void changeFaskes(FaskesModel faskes) {
+        faskesDb.save(faskes);
+    }
 }
