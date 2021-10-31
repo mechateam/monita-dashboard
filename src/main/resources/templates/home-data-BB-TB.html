@@ -46,7 +46,7 @@
                                 <tr th:each="balita, iter : ${listBalita}">
                                     <td th:text="${balita.name}"></td>
                                     <td th:text="${balita.id_pengguna.name}"></td>
-                                    <td th:text="${balita.birth_date}"></td>
+                                    <td th:text="${#dates.format(balita.birth_date, 'dd MMMM yyyy')}"></td>
                                     <td th:text="${umurBalita[__${iter.index}__]}"></td>
                                     <td>
                                         <a th:href="@{/balita/} + ${balita.id_balita}">Lihat</a>

@@ -71,13 +71,13 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive" id="tabel-pertumbuhan" style="display: block;">
-                            <table class="table" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table" id="dataTablePertumbuhan" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
                                     <th>Tanggal Input</th>
                                     <th>Usia</th>
-                                    <th>Berat Badan</th>
-                                    <th>Tinggi Badan</th>
+                                    <th>Berat Badan (KG)</th>
+                                    <th>Tinggi Badan (CM)</th>
                                     <th>Status BB/Usia</th>
                                     <th>Status TB/Usia</th>
                                     <th>Status BB/TB</th>
@@ -86,7 +86,7 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="pertumbuhan, iter : ${pertumbuhanBalita}">
-                                    <td th:text="${pertumbuhan.input_date}"></td>
+                                    <td th:text="${#dates.format(pertumbuhan.input_date, 'dd MMMM yyyy')}"></td>
                                     <td th:text="${pertumbuhan.input_age}"></td>
                                     <td th:text="${pertumbuhan.berat_badan}"></td>
                                     <td th:text="${pertumbuhan.tinggi_badan}"></td>
@@ -99,7 +99,7 @@
                             </table>
                         </div>
                         <div class="table-responsive" id="tabel-perkembangan" style="display: none;">
-                            <table class="table" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table" id="dataTablePerkembangan" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
                                     <th>Tanggal Input</th>
@@ -113,7 +113,7 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="perkembangan, iter : ${perkembanganBalita}">
-                                    <td th:text="${perkembangan.input_date}"></td>
+                                    <td th:text="${#dates.format(perkembangan.input_date, 'dd MMMM yyyy')}"></td>
                                     <td th:text="${perkembangan.input_age}"></td>
                                     <td th:text="${perkembangan.diagnosis_gerak_halus}"></td>
                                     <td th:text="${perkembangan.diagnosis_gerak_kasar}"></td>
@@ -125,7 +125,7 @@
                             </table>
                         </div>
                         <div class="table-responsive" id="tabel-imunisasi" style="display: none;">
-                            <table class="table" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table" id="dataTableImunisasi" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
                                     <th>Tanggal Imunisasi</th>
@@ -180,6 +180,34 @@
         document.getElementById('btn-imunisasi').setAttribute('style', 'background-color: transparent; color: #52545C; width: 150px');
         document.getElementById('btn-perkembangan').setAttribute('style', 'background-color: transparent; color: #52545C; width: 150px');
     }
+
+    $(document).ready(function() {
+        $.fn.dataTable.moment( 'DD MMMM YYYY');
+        $('#dataTablePertumbuhan').DataTable({
+            "columnDefs": [
+                {
+                    targets: 1,
+                    render: $.fn.dataTable.render.number( '.', ',', 0, '',' bulan' )
+                }
+            ]
+        });
+        $('#dataTablePerkembangan').DataTable( {
+            "columnDefs": [
+                {
+                    targets: 1,
+                    render: $.fn.dataTable.render.number( '', '', 0, '',' bulan' )
+                }
+            ]
+        } );
+        $('#dataTableImunisasi').DataTable({
+            "columnDefs": [
+                {
+                    targets: 1,
+                    render: $.fn.dataTable.render.number( '', '', 0, '',' bulan' )
+                }
+            ]
+        });
+    } );
 </script>
 </body>
 </html>

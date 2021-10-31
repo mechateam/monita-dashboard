@@ -6,8 +6,7 @@
     <object th:include="fragments/fragment :: js"></object>
 </head>
 
-<body id="page-top">
-
+<body>
     <!-- Page Wrapper -->
     <div id="wrapper">
         <ul th:replace="fragments/fragment :: sidebar"></ul>
@@ -25,31 +24,35 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 font-weight-bold" style="color: #656867">List Anak</h1>
+                    <h1 class="h3 mb-2 font-weight-bold" style="color: #656867">Daftar Balita</h1>
                     <p class="mb-4">List data anak berdasarkan kelurahan/domisili</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Tabel anak</h6><br>
+                            <div class="d-sm-flex align-items-center justify-content-between mb-12">
+                                <h6 class="m-0 font-weight-bold text-dark">Data Balita</h6>
+                                <div>
+                                    <form th:action="@{/balita/}" method="get"
+                                          class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                                        <div class="input-group">
+                                            <input name="rt" type="number" class="form-control bg-light border-primary" placeholder="Masukan RT"
+                                                   aria-label="Search" aria-describedby="basic-addon2">
+                                            <input name="rw" type="number" class="form-control bg-light border-primary" placeholder="Masukan RW"
+                                                   aria-label="Search" aria-describedby="basic-addon2">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" type="submit">
+                                                    <i class="fas fa-search fa-sm"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
-                            <form th:action="@{/balita/}" method="get"
-                                  class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                                <div class="input-group">
-                                    <input name="rt" type="number" class="form-control bg-light border-0 small" placeholder="Masukan RT"
-                                           aria-label="Search" aria-describedby="basic-addon2">
-                                    <input name="rw" type="number" class="form-control bg-light border-0 small" placeholder="Masukan RW"
-                                           aria-label="Search" aria-describedby="basic-addon2">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" type="submit">
-                                            <i class="fas fa-search fa-sm"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
                             <div class="table-responsive">
-                                <table th:if="${listBalita!=null and !listBalita.empty}" class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table th:if="${listBalita!=null and !listBalita.empty}" class="table" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>Nama Anak</th>
@@ -59,22 +62,13 @@
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Nama Anak</th>
-                                            <th>Nama Ibu</th>
-                                            <th>Tanggal Lahir</th>
-                                            <th>Usia</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                         <tr th:each="balita, iter : ${listBalita}">
                                             <td th:text="${balita.name}"></td>
                                             <td th:text="${balita.id_pengguna.name}"></td>
-                                            <td th:text="${balita.birth_date}"></td>
+                                            <td th:text="${#dates.format(balita.birth_date, 'dd MMMM yyyy')}"></td>
                                             <td th:text="${listUmurBalita[__${iter.index}__]}"></td>
-                                            <td><a href="/balita/">View</a></td>
+                                            <td><a th:href="@{/balita/} + ${balita.id_balita}">Lihat</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
