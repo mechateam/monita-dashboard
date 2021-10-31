@@ -192,8 +192,7 @@ public class UserController {
 
         //cekpassword baru dan konfirmasinya
         if(newpass.equals(confirmationpass)){
-            faskes.setPassword(newpass);
-            faskesService.changeFaskes(faskes);
+            faskesService.updatePassword(faskes,newpass);
             redirectAttributes.addFlashAttribute("successUpdate", "Password " + faskes.getName() + " berhasil diperbaharui");
             return "redirect:/user/profil/ubah-password";
         }
