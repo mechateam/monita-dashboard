@@ -18,4 +18,6 @@ public interface BalitaService {
     BalitaModel getBalitaById(Long id);
     List<String[]> getStatusPertumbuhan(BalitaModel balita);
     List<Integer> listYearFilter(List<UserModel> listUser);
+    String getMonth(Integer month);
+    Integer getMonthValue(String month);
 }

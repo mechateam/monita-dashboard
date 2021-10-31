@@ -91,7 +91,7 @@
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${#httpServletRequest.remoteUser}"></span>
                 <img class="img-profile rounded-circle"
-                     src="img/undraw_profile.svg">
+                     th:src="@{~/img/undraw_profile.svg}">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -127,7 +127,7 @@
         <div class="modal-content">
             <div class="modal-body">
                 <div class="d-flex justify-content-center align-items-center my-3">
-                    <h6 class="font-weight-bold text-center" style="color: black;">Ready to leave?</h6>
+                    <h6 class="font-weight-bold text-center" style="color: black;">Apakah benar ingin keluar?</h6>
                 </div>
                 <div class="d-flex justify-content-center my-3">
                     <button class="btn btn-primary mx-2" style="background-color:#338A94; width: 150px;" type="button" data-dismiss="modal">Batal</button>

@@ -79,56 +79,48 @@ public class BalitaController {
         return "list-balita";
     }
 
-    @GetMapping("/perhatian-BB")
-    public String DashboardDataBB(Model model){
-        Date today = new Date();
-        int year = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear();
-        int month = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getMonth().getValue();
+    @GetMapping("/perhatian-BB/{nows}")
+    public String DashboardDataBB(@PathVariable String nows, Model model){
         FaskesModel user = faskesService.getFaskesByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         List<UserModel> listParent = userDb.findAllByKelurahan(user.getKelurahan());
-        List<BalitaModel> listBalita = balitaService.getAllBalitaPerhatian(year, month, listParent).get(0);
+        String spliter[] = nows.split(" ");
+        List<BalitaModel> listBalita = balitaService.getAllBalitaPerhatian(Integer.parseInt(spliter[1]), balitaService.getMonthValue(spliter[0]), listParent).get(0);
         List<String> umurBalita =  balitaService.calculateUmurBalita(listBalita);
         model.addAttribute("listBalita", listBalita);
         model.addAttribute("umurBalita", umurBalita);
         return "home-data-BBperUsia";
     }
 
-    @GetMapping("/perhatian-TB")
-    public String DashboardDataTB(Model model){
-        Date today = new Date();
-        int year = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear();
-        int month = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getMonth().getValue();
+    @GetMapping("/perhatian-TB/{nows}")
+    public String DashboardDataTB(@PathVariable String nows, Model model){
         FaskesModel user = faskesService.getFaskesByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         List<UserModel> listParent = userDb.findAllByKelurahan(user.getKelurahan());
-        List<BalitaModel> listBalita = balitaService.getAllBalitaPerhatian(year, month, listParent).get(1);
+        String spliter[] = nows.split(" ");
+        List<BalitaModel> listBalita = balitaService.getAllBalitaPerhatian(Integer.parseInt(spliter[1]), balitaService.getMonthValue(spliter[0]), listParent).get(1);
         List<String> umurBalita =  balitaService.calculateUmurBalita(listBalita);
         model.addAttribute("listBalita", listBalita);
         model.addAttribute("umurBalita", umurBalita);
         return "home-data-TBperUsia";
     }
 
-    @GetMapping("/perhatian-BB-TB")
-    public String DashboardDataBBTB(Model model){
-        Date today = new Date();
-        int year = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear();
-        int month = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getMonth().getValue();
+    @GetMapping("/perhatian-BB-TB/{nows}")
+    public String DashboardDataBBTB(@PathVariable String nows, Model model){
         FaskesModel user = faskesService.getFaskesByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         List<UserModel> listParent = userDb.findAllByKelurahan(user.getKelurahan());
-        List<BalitaModel> listBalita = balitaService.getAllBalitaPerhatian(year, month, listParent).get(2);
+        String spliter[] = nows.split(" ");
+        List<BalitaModel> listBalita = balitaService.getAllBalitaPerhatian(Integer.parseInt(spliter[1]), balitaService.getMonthValue(spliter[0]), listParent).get(2);
         List<String> umurBalita =  balitaService.calculateUmurBalita(listBalita);
         model.addAttribute("listBalita", listBalita);
         model.addAttribute("umurBalita", umurBalita);
         return "home-data-BB-TB";
     }
 
-    @GetMapping("/perhatian-IMT")
-    public String DashboardDataIMT(Model model){
-        Date today = new Date();
-        int year = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear();
-        int month = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getMonth().getValue();
+    @GetMapping("/perhatian-IMT/{nows}")
+    public String DashboardDataIMT(@PathVariable String nows, Model model){
         FaskesModel user = faskesService.getFaskesByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         List<UserModel> listParent = userDb.findAllByKelurahan(user.getKelurahan());
-        List<BalitaModel> listBalita = balitaService.getAllBalitaPerhatian(year, month, listParent).get(3);
+        String spliter[] = nows.split(" ");
+        List<BalitaModel> listBalita = balitaService.getAllBalitaPerhatian(Integer.parseInt(spliter[1]), balitaService.getMonthValue(spliter[0]), listParent).get(3);
         List<String> umurBalita =  balitaService.calculateUmurBalita(listBalita);
         model.addAttribute("listBalita", listBalita);
         model.addAttribute("umurBalita", umurBalita);
@@ -145,6 +137,8 @@ public class BalitaController {
             List<BalitaModel> listBalitaU = new ArrayList<>();
             listBalitaU.add(balita);
             List<String> umurBalita =  balitaService.calculateUmurBalita(listBalitaU);
+            model.addAttribute("faskes", user.getName());
+            model.addAttribute("telepon", balita.getId_pengguna().getPhone());
             model.addAttribute("pertumbuhanBalita", balita.getListPertumbuhan());
             model.addAttribute("perkembanganBalita", balita.getListPerkembangan());
             model.addAttribute("imunisasiBalita", balita.getListImunisasi());
