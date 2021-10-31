@@ -79,7 +79,7 @@
                         <div class="row">
                             <div class="col-md-3 col-sm-6 col-xs-12">
                                 <div class="card mb-4">
-                                    <a th:href="@{/balita/perhatian-BB}" type="button" style="text-decoration: none"><div class="card-body text-center">
+                                    <a th:href="${nows == null} ? @{/balita/perhatian-BB/} + ${now} : @{/balita/perhatian-BB/} + ${nows}" type="button" style="text-decoration: none"><div class="card-body text-center">
                                         <h6 class="font-weight-bolder" style="color: #656867">Data BB/Usia Balita</h6>
                                         <h6 class="font-weight-bolder" style="color: red">PERHATIAN</h6>
                                             <h2 th:text="${listBalitaPerhatianRedirect == null} ? ${listBalitaPerhatian[0]} : ${listBalitaPerhatianRedirect[0]}" class="font-weight-bolder" style="color: #005DBF"></h2>
@@ -88,7 +88,7 @@
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12">
                                 <div class="card mb-4">
-                                    <a th:href="@{/balita/perhatian-TB}" type="button" style="text-decoration: none"><div class="card-body text-center">
+                                    <a th:href="${nows == null} ? @{/balita/perhatian-TB/} + ${now} : @{/balita/perhatian-TB/} + ${nows}" type="button" style="text-decoration: none"><div class="card-body text-center">
                                         <h6 class="font-weight-bolder" style="color: #656867">Data TB/Usia Balita</h6>
                                         <h6 class="font-weight-bolder" style="color: red">PERHATIAN</h6>
                                         <h2 th:text="${listBalitaPerhatianRedirect == null} ? ${listBalitaPerhatian[1]} : ${listBalitaPerhatianRedirect[1]}" class="font-weight-bolder" style="color: #005DBF"></h2>
@@ -97,7 +97,7 @@
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12">
                                 <div class="card mb-4">
-                                    <a th:href="@{/balita/perhatian-BB-TB}" type="button" style="text-decoration: none"><div class="card-body text-center">
+                                    <a th:href="${nows == null} ? @{/balita/perhatian-BB-TB/} + ${now} : @{/balita/perhatian-BB-TB/} + ${nows}" type="button" style="text-decoration: none"><div class="card-body text-center">
                                         <h6 class="font-weight-bolder" style="color: #656867">Data BB/TB Balita</h6>
                                         <h6 class="font-weight-bolder" style="color: red">PERHATIAN</h6>
                                         <h2 th:text="${listBalitaPerhatianRedirect == null} ? ${listBalitaPerhatian[2]} : ${listBalitaPerhatianRedirect[2]}" class="font-weight-bolder" style="color: #005DBF"></h2>
@@ -106,7 +106,7 @@
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12">
                                 <div class="card mb-4">
-                                    <a th:href="@{/balita/perhatian-IMT}" type="button" style="text-decoration: none"><div class="card-body text-center">
+                                    <a th:href="${nows == null} ? @{/balita/perhatian-IMT/} + ${now} : @{/balita/perhatian-IMT/} + ${nows}" type="button" style="text-decoration: none"><div class="card-body text-center">
                                         <h6 class="font-weight-bolder" style="color: #656867">Data IMT Balita</h6>
                                         <h6 class="font-weight-bolder" style="color: red">PERHATIAN</h6>
                                         <h2 th:text="${listBalitaPerhatianRedirect == null} ? ${listBalitaPerhatian[3]} : ${listBalitaPerhatianRedirect[3]}" class="font-weight-bolder" style="color: #005DBF"></h2>

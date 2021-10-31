@@ -1,5 +1,6 @@
 package ta.simonita.monita.service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 import ta.simonita.monita.model.BalitaModel;
 import ta.simonita.monita.model.PertumbuhanBalitaModel;
@@ -9,12 +10,12 @@ import ta.simonita.monita.repository.BalitaDb;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
 import java.text.DateFormatSymbols;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 
 @Service
@@ -193,6 +194,23 @@ public class BalitaServiceImpl implements BalitaService {
     @Override
     public String getMonth(Integer month) {
         return new DateFormatSymbols().getMonths()[month-1];
+    }
+
+    @Override
+    public Integer getMonthValue(String month) {
+        if(month.equals("January")){return 1;}
+        if(month.equals("February")){return 2;}
+        if(month.equals("March")){return 3;}
+        if(month.equals("April")){return 4;}
+        if(month.equals("May")){return 5;}
+        if(month.equals("June")){return 6;}
+        if(month.equals("July")){return 7;}
+        if(month.equals("August")){return 8;}
+        if(month.equals("September")){return 9;}
+        if(month.equals("October")){return 10;}
+        if(month.equals("November")){return 11;}
+        if(month.equals("December")){return 12;}
+        return null;
     }
 
     @Override
