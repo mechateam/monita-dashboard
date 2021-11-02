@@ -17,6 +17,10 @@ import ta.simonita.monita.service.BalitaService;
 import ta.simonita.monita.service.FaskesService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -148,5 +152,27 @@ public class BalitaController {
             return "detail-balita";
         }
         return "404";
+    }
+
+
+    @GetMapping("/excel/export")
+    public void exportToExcel(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=Report Balita " + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+
+        FaskesModel user = faskesService.getFaskesByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+
+
+        List<UserModel> listParent = userDb.findAllByKelurahan(user.getKelurahan());
+
+        ExcelExporter excelExporter = new ExcelExporter(listParent);
+
+        excelExporter.export(response);
+
     }
 }

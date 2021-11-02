@@ -14,6 +14,7 @@ import ta.simonita.monita.model.FaskesModel;
 import ta.simonita.monita.model.UserModel;
 import ta.simonita.monita.repository.FaskesDb;
 import ta.simonita.monita.service.FaskesService;
+import ta.simonita.monita.service.ServerProperties;
 
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -30,11 +31,15 @@ public class UserController {
     @Autowired
     FaskesService faskesService;
 
+    @Autowired
+    ServerProperties serverProperties;
+
 
 
     @RequestMapping("/register")
     public String registerForm(Model model){
         model.addAttribute("faskes", new FaskesModel());
+        model.addAttribute("listKelurahan",serverProperties.getKelurahan());
         return "page-register";
     }
 
