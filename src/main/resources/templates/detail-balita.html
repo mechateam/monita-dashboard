@@ -42,20 +42,8 @@
                     </div>
                     <div>
                         <li class="nav-item dropdown no-arrow" style="list-style-type: none;">
-                            <a class="nav-link dropdown-toggle btn-light" style="color: #338A94" href="#" id="userDropdown" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Unduh Data</a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" th:href="@{/}">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Identitas Balita
-                                </a>
-                                <a class="dropdown-item" th:href="@{/}">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Data Pertumbuhan
-                                </a>
-                            </div>
+                            <a class="btn-md-light" style="color: #338A94" th:href="'http://api.whatsapp.com/send?phone=' + ${telepon} +
+                                    '&text=Halo%20kami%20dari%20' + ${faskes} + '%20ingin%20menanyakan%20mengenai%20tumbuh%20kembang%20Balita%20' + ${balita.name}">Hubungi Ibu Balita</a>
                         </li>
                     </div>
                 </div>
@@ -65,8 +53,6 @@
                     <div class="card-header py-3">
                         <div class="d-sm-flex align-items-center justify-content-between mb-12">
                             <h6 class="m-0 font-weight-bold text-dark" id="judul-tabel">Pertumbuhan</h6>
-                            <a class="btn-md-light" style="color: #338A94" th:href="'http://api.whatsapp.com/send?phone=' + @{telepon} +
-                                    '&text=Halo%20kami%20dari%20' + ${faskes} + '%20ingin%20menanyakan%20mengenai%20tumbuh%20kembang%20Balita%20' + ${balita.name}">Hubungi Ibu Balita</a>
                         </div>
                     </div>
                     <div class="card-body">
