@@ -22,9 +22,14 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <div class="d-sm-flex align-content-center justify-content-between mb-4">
                     <h1 th:text="${balita.name} + ' - ' + ${umurBalita}" class="h3 mb-0 font-weight-bold"  style="color: #656867" text-align="center"></h1>
                 </div>
+                <!-- Kalo jadi pake tinggal uncomment -->
+<!--                <div class="d-sm-flex flex-column mb-4">-->
+<!--                    <div class="p-2"><h5 th:text="${balita.imd} ? 'Status IMD : Iya':'Status IMD: Tidak'" class="h5 mb-0"  style="color: #656867"></h5></div>-->
+<!--                    <div class="p-2"><h5 th:text="${balita.kia} ? 'Status KIA : Iya':'Status KIA: Tidak'" class="h5 mb-0"  style="color: #656867"></h5></div>-->
+<!--                </div>-->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <div>
                         <a class="btn btn-primary font-weight-bold py-3 mr-5 border-0" onClick= "toPertumbuhan()"

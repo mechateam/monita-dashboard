@@ -70,6 +70,18 @@ public class FaskesModel implements Serializable {
     @Column(name="email",nullable = false)
     private String email;
 
+    @NotNull
+    @Column(name = "phone",nullable = false)
+    private String phone;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public String getResetPasswordToken() {
         return resetPasswordToken;
     }
