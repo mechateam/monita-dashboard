@@ -57,6 +57,8 @@ public class ExcelExporter {
         createCell(row, 10, "Alamat", style);
         createCell(row, 11, "RT", style);
         createCell(row, 12, "RW", style);
+        createCell(row, 13, "IMD", style);
+        createCell(row, 14, "KIA", style);
 
         createCell(rowProb,0,"No",style);
         createCell(rowProb,1,"NIK",style);
@@ -116,6 +118,8 @@ public class ExcelExporter {
                 createCell(row, columnCount++, user.getAddress(), style);
                 createCell(row, columnCount++, user.getRt(), style);
                 createCell(row, columnCount++, user.getRw(), style);
+                createCell(row, columnCount++, user.getListBalita().get(i).getImd()==false ? "Tidak":"Iya", style);
+                createCell(row, columnCount++, user.getListBalita().get(i).getKia()==false ? "Tidak":"Iya", style);
 
                 for (PertumbuhanBalitaModel pertumbuhan: user.getListBalita().get(i).getListPertumbuhan()){
                     Row rowProb = sheetUkur.createRow(rowPertumbuhan++);
